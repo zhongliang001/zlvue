@@ -1,42 +1,34 @@
 import { fileURLToPath, URL } from 'node:url'
-
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import dts from 'vite-plugin-dts'
 import path from 'path'
-
+import DefineOptions from 'unplugin-vue-define-options/vite'
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), AutoImport({
-    resolvers: [ElementPlusResolver()],
-  }),
-  Components({
-    resolvers: [ElementPlusResolver()],
-  }),],
+  plugins: [vue(), dts(), DefineOptions()],
   base: '/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      'lib': fileURLToPath(new URL('./lib', import.meta.url))
-    },
+      lib: fileURLToPath(new URL('./lib', import.meta.url))
+    }
   },
   build: {
-    outDir: 'zlvue',
+    cssCodeSplit: true,
     lib: {
       entry: path.resolve(__dirname, './src/index.ts'),
       name: 'zlvue',
-      fileName: 'zlvue'
+      formats: ['es', 'umd']
     },
+    minify: 'esbuild',
     rollupOptions: {
-      external: ["vue"],
+      external: ['vue'],
       output: {
         globals: {
-          vue: "Vue",
-        },
-      },
+          vue: 'Vue'
+        }
+      }
     }
-
   }
 })

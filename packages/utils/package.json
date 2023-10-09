@@ -1,0 +1,12 @@
+{
+  "name": "@zl-vue/utils",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "gulp --require @esbuild-kit/cjs-loader"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
