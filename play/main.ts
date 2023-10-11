@@ -2,9 +2,9 @@ import { createApp } from 'vue'
 import App from './app.vue'
 import '@zl-vue/theme-chalk/src/index.scss'
 
-import ZlInput from '../packages/components/input'
+import install from 'zl-vue'
 
 const app = createApp(App)
-app.use(ZlInput)
+app.use(install)
 
 app.mount('#app')

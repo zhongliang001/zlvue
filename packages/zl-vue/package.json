@@ -1,0 +1,14 @@
+{
+  "name": "zl-vue",
+  "version": "0.0.0-dev.1",
+  "description": "Component",
+  "keywords": [],
+  "main": "index.ts",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.0"
+  }
+}
