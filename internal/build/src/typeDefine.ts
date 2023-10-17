@@ -30,9 +30,6 @@ export const buildTypeDefine = async () => {
   })
   const sourceFiles: SourceFile[] = await addFiles(project)
 
-  await project.emit({
-    emitOnlyDtsFiles: true
-  })
   const diagnostics = project.getPreEmitDiagnostics()
   if (diagnostics.length > 0) {
     consola.error(project.formatDiagnosticsWithColorAndContext(diagnostics))
@@ -40,7 +37,10 @@ export const buildTypeDefine = async () => {
     consola.error(err)
     throw err
   }
-  sourceFiles.map(async (sf) => {
+  await project.emit({
+    emitOnlyDtsFiles: true
+  })
+  const tasks = sourceFiles.map(async (sf) => {
     const relativePath = path.relative(packagesDir, sf.getFilePath())
     consola.trace(chalk.yellow(`Generating definition for file: ${chalk.bold(relativePath)}`))
     const emitOutput = sf.getEmitOutput()
@@ -49,7 +49,7 @@ export const buildTypeDefine = async () => {
       throw new Error(`Emit no file: ${chalk.bold(relativePath)}`)
     }
 
-    emitFiles.forEach(async (em) => {
+    const subTasks = emitFiles.map(async (em) => {
       const filepath = em.getFilePath()
       await mkdir(
         path.dirname(filepath),
@@ -61,7 +61,9 @@ export const buildTypeDefine = async () => {
 
       await writeFile(filepath, pathRewriter('esm')(em.getText()), 'utf8')
     })
+    await Promise.all(subTasks)
   })
+  await Promise.all(tasks)
 }
 
 async function addFiles(project: Project) {
@@ -71,9 +73,11 @@ async function addFiles(project: Project) {
       onlyFiles: true
     })
   )
+
+  consola.info(`----------------获取到文件数2222${packagesDir}`)
   const globSourceFile = '**/*.{js?(x),ts?(x),vue}'
   const filePaths = excludeFiles(
-    await glob([globSourceFile, '!element-plus/**/*'], {
+    await glob([globSourceFile, '!zl-vue/**/*', '!node_modoules/**/*'], {
       cwd: packagesDir,
       absolute: true,
       onlyFiles: true
@@ -113,7 +117,10 @@ async function addFiles(project: Project) {
     }),
     ...input.map(async (file) => {
       const content = await readFile(path.resolve(packagesDir + '/zl-vue', file), 'utf-8')
-      sourceFiles.push(project.createSourceFile(path.resolve(projectRoot, file), content))
+      consola.info(`----------------获取到文件${content}`)
+      consola.info(`----------------获取到文件${file}`)
+      consola.info(`----------------获取到文件${packagesDir}`)
+      sourceFiles.push(project.createSourceFile(path.resolve(packagesDir, file), content))
     })
   ])
 
@@ -122,7 +129,10 @@ async function addFiles(project: Project) {
 }
 
 export const pathRewriter = (module: Module) => {
+  const config = buildConfig[module]
   return (id: string) => {
+    id = id.replaceAll(`@zl-vue/theme-chalk`, `zl-vue/theme-chalk`)
+    id = id.replaceAll(`@zl-vue/`, `${config.bundle.path}/`)
     return id
   }
 }

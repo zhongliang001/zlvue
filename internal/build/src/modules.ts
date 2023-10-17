@@ -9,7 +9,6 @@ import { glob } from 'fast-glob'
 import { outDir, packagesDir } from './paths'
 import { buildConfigEntries } from './config'
 import { excludeFiles, generateExternal, target, writeBundles } from './utils'
-import typescript from 'rollup-plugin-typescript2'
 import consola from 'consola'
 import chalk from 'chalk'
 
@@ -44,8 +43,7 @@ export const buildModules = async () => {
         loaders: {
           '.vue': 'ts'
         }
-      }),
-      typescript()
+      })
     ],
     external: await generateExternal({ full: false }),
     treeshake: false

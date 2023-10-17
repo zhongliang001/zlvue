@@ -38,7 +38,7 @@ export const run = async (command: string, cwd: string = projectRoot) =>
   })
 const withTashName = <T>(name: string, fn: T & any) => Object.assign(fn, { displayName: name })
 
-const target = 'es2018'
+const target = 'es2021'
 const excludeFiles = (files: string[]) => {
   const excludes = ['node_modules', 'test', 'mock', 'gulpfile', 'dist']
   return files.filter((path) => !excludes.some((exclude) => path.includes(exclude)))
