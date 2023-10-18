@@ -1,5 +1,4 @@
 import type { vShow } from 'vue'
-import type { INSTALLED_KEY } from '@element-plus/constants'
 
 declare global {
   const process: {
