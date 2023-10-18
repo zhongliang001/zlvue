@@ -22,10 +22,9 @@
 </template>
 <script setup lang="ts">
 import { inputProps } from './input'
-import ZlIcon from '../../icon'
 import { computed, onMounted, shallowRef } from 'vue'
 import * as all from '../../locale'
-import { formatCurrency } from '@zl-vue/utils/currency'
+import { formatCurrency } from '@zl-vue/utils/src/currency'
 const props = defineProps(inputProps)
 defineOptions({
   name: 'ZlInput'
@@ -36,7 +35,7 @@ const _ref = computed(() => input.value)
 const emit = defineEmits(['update:modelValue', 'input'])
 const enter = () => {
   // 当type为number时控制只能输入数字
-  if (props.type === 'number' || props.type === 'currency') {
+  if (props.type === 'currency') {
     preventInputChar()
   }
 }
@@ -88,7 +87,7 @@ const preventInputChar = () => {
 }
 
 onMounted(() => {
-  if (props.type !== 'number' && props.type !== 'currency') {
+  if (props.type !== 'currency') {
     input.value?.setAttribute('type', props.type)
   } else {
     input.value?.setAttribute('type', 'text')
@@ -121,10 +120,10 @@ const focus = () => {
 }
 
 const blur = () => {
-  if (props.type !== 'currency') {
+  if (props.type === 'currency') {
     const value = _ref.value?.value
     if (value) {
-      const curr = formatCurrency(value)
+      const curr = formatCurrency(value, props.digit)
       _ref.value.value = curr
     }
   }

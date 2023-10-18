@@ -1,0 +1,72 @@
+@use '../mixins/mixins.scss' as *;
+
+$width: 200;
+.#{$namespace}-date {
+  width: $width + px;
+}
+
+.#{$namespace}-date-sel {
+  float: left;
+  border: 0.01rem solid black;
+  width: $width/7 + px;
+  height: 25px;
+  text-align: center;
+  border-right: none;
+}
+
+.#{$namespace}-date-week {
+  float: left;
+  border: 0.01rem solid black;
+  width: $width/7 + px;
+  height: 25px;
+  text-align: center;
+  border-right: none;
+}
+.#{$namespace}-date-week.right {
+  border-right: 0.01rem solid black;
+}
+
+.#{$namespace}-date-head {
+  float: left;
+  border: 0.01rem solid black;
+  width: $width/9 + px;
+  height: 25px;
+  text-align: center;
+  border-right: none;
+}
+.#{$namespace}-date-head.month {
+  width: ($width/9) * 2 + px;
+}
+.#{$namespace}-date-head.year {
+  width: $width/3 + px;
+}
+
+.#{$namespace}-date-head.right {
+  border-right: 0.01rem solid black;
+}
+
+.#{$namespace}-date-sel.right {
+  border-right: 0.01rem solid black;
+}
+
+.#{$namespace}-date-sel.year {
+  width: 60px;
+}
+
+.#{$namespace}-date:focus + .#{$namespace}-date-container {
+  display: block;
+}
+
+.#{$namespace}-date-container:hover {
+  display: block;
+}
+
+.#{$namespace}-date-sel:hover {
+  background-color: bisque;
+}
+
+.#{$namespace}-date-container {
+  display: none;
+  position: absolute;
+  background-color: aliceblue;
+}

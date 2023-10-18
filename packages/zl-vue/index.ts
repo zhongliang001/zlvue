@@ -1,4 +1,4 @@
-import ZlInput from '@zl-vue/components/input'
-import withInstall from '@zl-vue/utils/withInstall'
-const install = withInstall(ZlInput)
+import * as components from '@zl-vue/components'
+import { installAll } from '@zl-vue/utils/withInstall'
+const install = installAll(components.installer)
 export default install

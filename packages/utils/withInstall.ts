@@ -9,3 +9,12 @@ const withInstall = <T>(comp: T) => {
 }
 
 export default withInstall
+export const installAll = (components: Plugin[] = []) => {
+  const install = (app: App) => {
+    components.forEach((c) => app.use(c))
+    // app.use(input)
+  }
+  return {
+    install
+  }
+}

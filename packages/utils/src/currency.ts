@@ -1,6 +1,12 @@
-export const formatCurrency = (data: String | number): string => {
+export const formatCurrency = (data: String | number, digit: number | undefined): string => {
   const curr: string = data.toString()
   const currs: string[] = curr.split('.')
+  let zeros: string = '.'
+  if (digit && digit > 0) {
+    for (let num = 0; num < digit; num++) {
+      zeros += '0'
+    }
+  }
   let intData: string = currs[0]
   let currency: string = ''
   const fData: string = currs.length === 1 ? '' : currs[1]
@@ -25,15 +31,15 @@ export const formatCurrency = (data: String | number): string => {
     if (fData) {
       currency += '.' + fData
     } else {
-      currency += '.00'
+      currency += zeros
     }
-    return currency
+    return parseInt(currency).toFixed(digit)
   } else {
     if (fData) {
       intData += '.' + fData
     } else {
-      intData += '.00'
+      intData += zeros
     }
-    return intData
+    return parseInt(intData).toFixed(digit)
   }
 }

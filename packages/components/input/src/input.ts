@@ -64,10 +64,15 @@ export const inputProps = {
     String
   },
   size: {
-    type: Number
+    type: Number,
+    default: 1
   },
   step: {
     type: String
+  },
+  digit: {
+    type: Number,
+    default: 2
   },
   modelValue: {},
   placeholder: {
