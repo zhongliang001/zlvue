@@ -1,0 +1,8 @@
+@use '../mixins/mixins.scss' as *;
+.hidden {
+  display: none;
+}
+
+.colorgray {
+  color: gray;
+}
