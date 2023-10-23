@@ -6,96 +6,42 @@
     readonly="true"
     @focus="sel = 'day'"
     placeholder="年/月/日"
+    :style="{ width: width + 'px' }"
   />
-  {{ selPage.length }}
-  <div class="zl-date-container" style="clear: both">
+  <!-- width - 0 + 12 + 'px' 减0是为了解决vue中数字相加默认编程字符串拼接 -->
+  <div class="zl-date-container" style="clear: both" :style="{ width: width - 0 + 12 + 'px' }">
+    <!-- -->
     <div v-show="sel === 'day'">
       <div style="clear: both">
-        <div class="zl-date-head" @click="subYear">
-          <svg
-            t="1697881304891"
-            class="icon"
-            viewBox="0 0 1024 1024"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            p-id="912"
-            width="16"
-            height="16"
-            style="transform: translateY(25%)"
-          >
-            <path
-              d="M797.1 769a31.88 31.88 0 0 0-9.42-22.67L552.5 512l235.18-234.29a32 32 0 1 0-45.17-45.34l-240.87 240a56 56 0 0 0 0 79.34l240.87 240A32 32 0 0 0 797.1 769z"
-              p-id="913"
-            ></path>
-            <path
-              d="M538.84 769a31.88 31.88 0 0 0-9.42-22.67L294.24 512l235.18-234.29a32 32 0 1 0-45.16-45.34l-240.88 240a56 56 0 0 0 0 79.34l240.88 240A32 32 0 0 0 538.84 769z"
-              p-id="914"
-            ></path>
-          </svg>
+        <div class="zl-date-head" @click="subYear" :style="{ width: width / 10 + 'px' }">
+          <zl-icon class="icon-arrow-double-left"></zl-icon>
         </div>
-        <div class="zl-date-head" @click="subMonth">
-          <svg
-            t="1697881784048"
-            class="icon"
-            viewBox="0 0 1024 1024"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            p-id="1324"
-            width="16"
-            height="16"
-            style="transform: translateY(25%)"
-          >
-            <path
-              d="M668 769a31.88 31.88 0 0 0-9.42-22.67L423.37 512l235.18-234.29a32 32 0 1 0-45.17-45.34l-240.87 240a56 56 0 0 0 0 79.34l240.87 240A32 32 0 0 0 668 769z"
-              p-id="1325"
-            ></path>
-          </svg>
+        <div class="zl-date-head" @click="subMonth" :style="{ width: width / 10 + 'px' }">
+          <zl-icon class="icon-arrow-left"></zl-icon>
         </div>
-        <div class="zl-date-head month" @click="toSelectMonth">
+        <div
+          class="zl-date-head month"
+          @click="toSelectMonth"
+          :style="{ width: (3 * width) / 10 + 'px' }"
+        >
           {{ locale[language].date.month[month] }}
         </div>
-        <div class="zl-date-head year" @click="toSelectYear">
+        <div
+          class="zl-date-head year"
+          @click="toSelectYear"
+          :style="{ width: (3 * width) / 10 + 'px' }"
+        >
           {{ year + locale[language].date.year }}
         </div>
-        <div class="zl-date-head" @click="addMonth">
-          <svg
-            t="1697881817631"
-            class="icon"
-            viewBox="0 0 1024 1024"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            p-id="1472"
-            width="16"
-            height="16"
-            style="transform: translateY(25%)"
-          >
-            <path
-              d="M356 769a31.88 31.88 0 0 1 9.42-22.67L600.63 512 365.45 277.71a32 32 0 1 1 45.17-45.34l240.87 240a56 56 0 0 1 0 79.34l-240.87 240A32 32 0 0 1 356 769z"
-              p-id="1473"
-            ></path>
-          </svg>
+        <div class="zl-date-head" @click="addMonth" :style="{ width: width / 10 + 'px' }">
+          <zl-icon class="icon-arrow-right"></zl-icon>
         </div>
-        <div class="zl-date-head right" @click.prevent="addYear">
-          <svg
-            t="1697881751063"
-            class="icon"
-            viewBox="0 0 1024 1024"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            p-id="1175"
-            width="16"
-            height="16"
-            style="transform: translateY(25%)"
-          >
-            <path
-              d="M226.9 769a31.88 31.88 0 0 1 9.42-22.67L471.5 512 236.32 277.71a32 32 0 1 1 45.17-45.34l240.87 240a56 56 0 0 1 0 79.34l-240.87 240A32 32 0 0 1 226.9 769z"
-              p-id="1176"
-            ></path>
-            <path
-              d="M485.16 769a31.88 31.88 0 0 1 9.42-22.67L729.76 512 494.58 277.71a32 32 0 1 1 45.16-45.34l240.88 240a56 56 0 0 1 0 79.34l-240.88 240A32 32 0 0 1 485.16 769z"
-              p-id="1177"
-            ></path>
-          </svg>
+        <div
+          class="zl-date-head right"
+          @click.prevent="addYear"
+          :style="{ width: width / 10 + 'px' }"
+        >
+          <zl-icon class="icon-arrow-double-right"></zl-icon>
         </div>
       </div>
       <div style="clear: both">
@@ -104,6 +50,7 @@
           :class="{ right: index === 6 }"
           v-for="(num, index) in week"
           :key="index"
+          :style="{ width: width / 7 + 'px' }"
         >
           {{ locale[language].date.week[num] }}
         </div>
@@ -120,6 +67,7 @@
               selPage[(index - 1) * 7 + i - 1].month === month &&
               selPage[(index - 1) * 7 + i - 1].day === day
           }"
+          :style="{ width: width / 7 + 'px' }"
           @click="selDate(selPage[(index - 1) * 7 + i - 1])"
         >
           {{ selPage[(index - 1) * 7 + i - 1].day }}
@@ -134,47 +82,18 @@
         style="float: left"
         :class="{ selected: value === month }"
         @click="selectMonth(value)"
+        :style="{ width: width / 3 + 'px' }"
       >
         {{ key }}
       </div>
     </div>
     <div v-show="sel === 'year'">
       <div>
-        <div class="zl-date-year-head" @click="subYears">
-          <svg
-            t="1697881784048"
-            class="icon"
-            viewBox="0 0 1024 1024"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            p-id="1324"
-            width="16"
-            height="16"
-            style="transform: translateY(25%)"
-          >
-            <path
-              d="M668 769a31.88 31.88 0 0 0-9.42-22.67L423.37 512l235.18-234.29a32 32 0 1 0-45.17-45.34l-240.87 240a56 56 0 0 0 0 79.34l240.87 240A32 32 0 0 0 668 769z"
-              p-id="1325"
-            ></path>
-          </svg>
+        <div class="zl-date-year-head" @click="subYears" :style="{ width: width / 2 + 'px' }">
+          <zl-icon class="icon-arrow-left"></zl-icon>
         </div>
-        <div class="zl-date-year-head" @click="addYears">
-          <svg
-            t="1697881817631"
-            class="icon"
-            viewBox="0 0 1024 1024"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            p-id="1472"
-            width="16"
-            height="16"
-            style="transform: translateY(25%)"
-          >
-            <path
-              d="M356 769a31.88 31.88 0 0 1 9.42-22.67L600.63 512 365.45 277.71a32 32 0 1 1 45.17-45.34l240.87 240a56 56 0 0 1 0 79.34l-240.87 240A32 32 0 0 1 356 769z"
-              p-id="1473"
-            ></path>
-          </svg>
+        <div class="zl-date-year-head" :style="{ width: width / 2 + 'px' }" @click="addYears">
+          <zl-icon class="icon-arrow-right"></zl-icon>
         </div>
       </div>
       <div
@@ -184,6 +103,7 @@
         v-for="yValue in years"
         :key="yValue"
         @click="selectYear(yValue)"
+        :style="{ width: width / 3 + 'px' }"
       >
         {{ yValue }}
       </div>
@@ -201,6 +121,7 @@ import {
 import * as locale from '../../locale'
 import { ref, shallowRef, watch } from 'vue'
 import { dateProps } from './date'
+import ZlIcon from '../../icon'
 const props = defineProps(dateProps)
 defineOptions({
   name: 'ZlDate'

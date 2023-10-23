@@ -14,10 +14,10 @@ export function compileCss() {
     .pipe(dest(path.resolve(outDir, './theme-chalk')))
 }
 
-function copyFont() {
-  return src(path.resolve(__dirname, './src/fonts'))
+export function copyFont() {
+  return src(path.resolve(packagesDir, 'theme-chalk/src/fonts/**/*'))
     .pipe(cleanCss())
-    .pipe(dest(path.resolve(outDir, './theme-chalk/font')))
+    .pipe(dest(path.resolve(outDir, './theme-chalk/fonts')))
 }
 
 // function copyfullStyle() {

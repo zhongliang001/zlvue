@@ -117,9 +117,6 @@ async function addFiles(project: Project) {
     }),
     ...input.map(async (file) => {
       const content = await readFile(path.resolve(packagesDir + '/zl-vue', file), 'utf-8')
-      consola.info(`----------------获取到文件${content}`)
-      consola.info(`----------------获取到文件${file}`)
-      consola.info(`----------------获取到文件${packagesDir}`)
       sourceFiles.push(project.createSourceFile(path.resolve(packagesDir, file), content))
     })
   ])

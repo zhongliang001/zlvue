@@ -4,6 +4,12 @@
 $width: 200;
 .#{$namespace}-date {
   width: $width + px;
+  height: 20px;
+  border-radius: 0.25rem;
+}
+
+.#{$namespace}-date:focus-visible {
+  outline-color: gray;
 }
 
 .#{$namespace}-date-sel {
