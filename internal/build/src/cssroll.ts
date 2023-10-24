@@ -15,9 +15,9 @@ export function compileCss() {
 }
 
 export function copyFont() {
-  return src(path.resolve(packagesDir, 'theme-chalk/src/fonts/**/*'))
-    .pipe(cleanCss())
-    .pipe(dest(path.resolve(outDir, './theme-chalk/fonts')))
+  return src(path.resolve(packagesDir, 'theme-chalk/src/fonts/**/*')).pipe(
+    dest(path.resolve(outDir, './theme-chalk/fonts'))
+  )
 }
 
 export function copyPackage() {
