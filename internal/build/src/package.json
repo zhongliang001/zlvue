@@ -30,6 +30,7 @@
       "types": "./es/index.d.ts",
       "import": "./es/zl-vue/index.mjs",
       "require": "./lib/zl-vue/index.js"
-    }
+    },
+    "./theme-chalk/index.css": "./theme-chalk/index.css"
   }
 }
