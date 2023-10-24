@@ -3,7 +3,7 @@
     <zl-input class="a" type="number" ref="xx" name="hhhhhhhhhh"></zl-input>
 
     <zl-input class="a" type="date" ref="xxxx" name="a"></zl-input>
-    <zl-date></zl-date>
+    <zl-date width="300"></zl-date>
     <div>
       <button :onclick="ci">点击</button>
       <button :onclick="add">+</button>

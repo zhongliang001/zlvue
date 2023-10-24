@@ -78,18 +78,18 @@ const getMonthPage = (year: number, month: number, isStartMon: boolean): ZlDay[]
     }
   }
   // 获取本月天数
-  date.setMonth(month)
-  date.setDate(0)
-  const currentDays = date.getDate()
+  const lastDate = new Date(year, month, 1)
+  lastDate.setDate(0)
+  const currentDays = lastDate.getDate()
   for (let i = 0; i < currentDays; i++, index++) {
     dates[index] = {
       month: month,
       day: i + 1
     }
   }
-  const endWeek = date.getDay()
+  const endWeek = lastDate.getDay()
   let isNeedEndDay: boolean = false
-  if ((isStartMon && endWeek !== 7) || (!isStartMon && endWeek !== 6)) {
+  if ((isStartMon && endWeek !== 0) || (!isStartMon && endWeek !== 6)) {
     isNeedEndDay = true
   }
   if (isNeedEndDay) {
@@ -122,9 +122,9 @@ const formater = (date: Date, pattern: string): string => {
     .replace('yyyy', date.getFullYear().toString())
     .replace(
       'MM',
-      date.getMonth().toString().length > 1
-        ? date.getMonth().toString()
-        : '0' + date.getMonth().toString()
+      (date.getMonth() + 1).toString().length > 1
+        ? (date.getMonth() + 1).toString()
+        : '0' + (date.getMonth() + 1)
     )
     .replace(
       'dd',

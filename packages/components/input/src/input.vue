@@ -94,9 +94,6 @@ onMounted(() => {
   }
   if (!props.placeholder) {
     const language = navigator.language.replaceAll('-', '')
-    console.log(language)
-
-    console.log(all[language])
     if (input.value) {
       input.value.placeholder = all[language].input.placeholder
     }

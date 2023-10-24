@@ -8,6 +8,10 @@ export const dateProps = {
   pattern: {
     type: String,
     default: 'yyyy-MM-dd'
+  },
+  width: {
+    type: Number,
+    default: 200
   }
 }
 

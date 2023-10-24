@@ -8,7 +8,13 @@ export default series(
     run('pnpm run clean')
   }),
   // withTashName('buildPackage', () => run('pnpm run  --parallel build --filter ./packages/'))
-  parallel(runTask('buildModules'), runTask('buildTypeDefine'), runTask('compileCss')),
+  parallel(
+    runTask('buildModules'),
+    runTask('buildTypeDefine'),
+    runTask('compileCss'),
+    runTask('copyFont'),
+    runTask('copyPackage')
+  ),
   parallel(copyTypesDefinitions)
 )
 
