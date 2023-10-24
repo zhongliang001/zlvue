@@ -1,0 +1,35 @@
+{
+  "name": "zl-vue",
+  "version": "0.0.1",
+  "description": "Component",
+  "keywords": [],
+  "main": "lib/zl-vue/index.js",
+  "module": "es/zl-vue/index.mjs",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "csstype": "^2.6.20"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.0"
+  },
+  "type": "module",
+  "types": "./es/index.d.ts",
+  "style": "./theme-chalk/index.css",
+  "sideEffects": [
+    "dist/*",
+    "theme-chalk/**/*.css",
+    "theme-chalk/src/**/*.scss",
+    "es/components/*/style/*",
+    "lib/components/*/style/*"
+  ],
+  "exports": {
+    ".": {
+      "types": "./es/index.d.ts",
+      "import": "./es/zl-vue/index.mjs",
+      "require": "./lib/zl-vue/index.js"
+    }
+  }
+}
