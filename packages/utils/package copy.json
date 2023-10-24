@@ -7,7 +7,7 @@
   "bugs": {
     "url": "https://github.com/element-plus/element-plus/issues"
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
   "main": "lib/zl-vue/index.js",
   "module": "es/zl-vue/index.mjs",
   "types": "es/index.d.ts",
