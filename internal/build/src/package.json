@@ -5,7 +5,7 @@
   "keywords": [],
   "main": "lib/zl-vue/index.js",
   "module": "es/zl-vue/index.mjs",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "publishConfig": {
     "access": "public"
   },
@@ -30,6 +30,7 @@
       "types": "./es/index.d.ts",
       "import": "./es/zl-vue/index.mjs",
       "require": "./lib/zl-vue/index.js"
-    }
+    },
+    "./theme-chalk/index.css": "./theme-chalk/index.css"
   }
 }

@@ -15,15 +15,15 @@ export function compileCss() {
 }
 
 export function copyFont() {
-  return src(path.resolve(packagesDir, 'theme-chalk/src/fonts/**/*'))
-    .pipe(cleanCss())
-    .pipe(dest(path.resolve(outDir, './theme-chalk/fonts')))
+  return src(path.resolve(packagesDir, 'theme-chalk/src/fonts/**/*')).pipe(
+    dest(path.resolve(outDir, './theme-chalk/fonts'))
+  )
 }
 
 export function copyPackage() {
-  return src(path.resolve(projectRoot, 'internal/build/src/package.json'))
-    .pipe(cleanCss())
-    .pipe(dest(path.resolve(outDir, './')))
+  return src(path.resolve(projectRoot, 'internal/build/src/package.json')).pipe(
+    dest(path.resolve(outDir, './'))
+  )
 }
 
 // function copyfullStyle() {
