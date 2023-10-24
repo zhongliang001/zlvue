@@ -1,111 +1,113 @@
 <template>
-  <input
-    ref="input"
-    class="zl-date"
-    type="text"
-    readonly="true"
-    @focus="sel = 'day'"
-    placeholder="年/月/日"
-    :style="{ width: width + 'px' }"
-  />
-  <!-- width - 0 + 12 + 'px' 减0是为了解决vue中数字相加默认编程字符串拼接 -->
-  <div class="zl-date-container" style="clear: both" :style="{ width: width - 0 + 12 + 'px' }">
-    <!-- -->
-    <div v-show="sel === 'day'">
-      <div style="clear: both">
-        <div class="zl-date-head" @click="subYear" :style="{ width: width / 10 + 'px' }">
-          <zl-icon class="icon-arrow-double-left"></zl-icon>
+  <div>
+    <input
+      ref="input"
+      class="zl-date"
+      type="text"
+      readonly="true"
+      @focus="sel = 'day'"
+      placeholder="年/月/日"
+      :style="{ width: width + 'px' }"
+    />
+    <!-- width - 0 + 12 + 'px' 减0是为了解决vue中数字相加默认编程字符串拼接 -->
+    <div class="zl-date-container" style="clear: both" :style="{ width: width - 0 + 12 + 'px' }">
+      <!-- -->
+      <div v-show="sel === 'day'">
+        <div style="clear: both">
+          <div class="zl-date-head" @click="subYear" :style="{ width: width / 10 + 'px' }">
+            <zl-icon class="icon-arrow-double-left"></zl-icon>
+          </div>
+          <div class="zl-date-head" @click="subMonth" :style="{ width: width / 10 + 'px' }">
+            <zl-icon class="icon-arrow-left"></zl-icon>
+          </div>
+          <div
+            class="zl-date-head month"
+            @click="toSelectMonth"
+            :style="{ width: (3 * width) / 10 + 'px' }"
+          >
+            {{ locale[language].date.month[month] }}
+          </div>
+          <div
+            class="zl-date-head year"
+            @click="toSelectYear"
+            :style="{ width: (3 * width) / 10 + 'px' }"
+          >
+            {{ year + locale[language].date.year }}
+          </div>
+          <div class="zl-date-head" @click="addMonth" :style="{ width: width / 10 + 'px' }">
+            <zl-icon class="icon-arrow-right"></zl-icon>
+          </div>
+          <div
+            class="zl-date-head right"
+            @click.prevent="addYear"
+            :style="{ width: width / 10 + 'px' }"
+          >
+            <zl-icon class="icon-arrow-double-right"></zl-icon>
+          </div>
         </div>
-        <div class="zl-date-head" @click="subMonth" :style="{ width: width / 10 + 'px' }">
-          <zl-icon class="icon-arrow-left"></zl-icon>
+        <div style="clear: both">
+          <div
+            class="zl-date-week"
+            :class="{ right: index === 6 }"
+            v-for="(num, index) in week"
+            :key="index"
+            :style="{ width: width / 7 + 'px' }"
+          >
+            {{ locale[language].date.week[num] }}
+          </div>
         </div>
-        <div
-          class="zl-date-head month"
-          @click="toSelectMonth"
-          :style="{ width: (3 * width) / 10 + 'px' }"
-        >
-          {{ locale[language].date.month[month] }}
-        </div>
-        <div
-          class="zl-date-head year"
-          @click="toSelectYear"
-          :style="{ width: (3 * width) / 10 + 'px' }"
-        >
-          {{ year + locale[language].date.year }}
-        </div>
-        <div class="zl-date-head" @click="addMonth" :style="{ width: width / 10 + 'px' }">
-          <zl-icon class="icon-arrow-right"></zl-icon>
-        </div>
-        <div
-          class="zl-date-head right"
-          @click.prevent="addYear"
-          :style="{ width: width / 10 + 'px' }"
-        >
-          <zl-icon class="icon-arrow-double-right"></zl-icon>
-        </div>
-      </div>
-      <div style="clear: both">
-        <div
-          class="zl-date-week"
-          :class="{ right: index === 6 }"
-          v-for="(num, index) in week"
-          :key="index"
-          :style="{ width: width / 7 + 'px' }"
-        >
-          {{ locale[language].date.week[num] }}
-        </div>
-      </div>
-      <div style="clear: both" v-for="index in selPage.length / 7" :key="index">
-        <div
-          class="zl-date-sel"
-          v-for="i in 7"
-          :key="i"
-          :class="{
-            right: i === 7,
-            colorgray: selPage[(index - 1) * 7 + i - 1].month !== month,
-            selected:
-              selPage[(index - 1) * 7 + i - 1].month === month &&
-              selPage[(index - 1) * 7 + i - 1].day === day
-          }"
-          :style="{ width: width / 7 + 'px' }"
-          @click="selDate(selPage[(index - 1) * 7 + i - 1])"
-        >
-          {{ selPage[(index - 1) * 7 + i - 1].day }}
-        </div>
-      </div>
-    </div>
-    <div v-show="sel === 'month'">
-      <div
-        class="zl-date-month-sel"
-        v-for="(key, value) in locale[language].date.month"
-        :key="key"
-        style="float: left"
-        :class="{ selected: value === month }"
-        @click="selectMonth(value)"
-        :style="{ width: width / 3 + 'px' }"
-      >
-        {{ key }}
-      </div>
-    </div>
-    <div v-show="sel === 'year'">
-      <div>
-        <div class="zl-date-year-head" @click="subYears" :style="{ width: width / 2 + 'px' }">
-          <zl-icon class="icon-arrow-left"></zl-icon>
-        </div>
-        <div class="zl-date-year-head" :style="{ width: width / 2 + 'px' }" @click="addYears">
-          <zl-icon class="icon-arrow-right"></zl-icon>
+        <div style="clear: both" v-for="index in selPage.length / 7" :key="index">
+          <div
+            class="zl-date-sel"
+            v-for="i in 7"
+            :key="i"
+            :class="{
+              right: i === 7,
+              colorgray: selPage[(index - 1) * 7 + i - 1].month !== month,
+              selected:
+                selPage[(index - 1) * 7 + i - 1].month === month &&
+                selPage[(index - 1) * 7 + i - 1].day === day
+            }"
+            :style="{ width: width / 7 + 'px' }"
+            @click="selDate(selPage[(index - 1) * 7 + i - 1])"
+          >
+            {{ selPage[(index - 1) * 7 + i - 1].day }}
+          </div>
         </div>
       </div>
-      <div
-        class="zl-date-year-sel"
-        :class="{ selected: yValue === year }"
-        style="float: left"
-        v-for="yValue in years"
-        :key="yValue"
-        @click="selectYear(yValue)"
-        :style="{ width: width / 3 + 'px' }"
-      >
-        {{ yValue }}
+      <div v-show="sel === 'month'">
+        <div
+          class="zl-date-month-sel"
+          v-for="(key, value) in locale[language].date.month"
+          :key="key"
+          style="float: left"
+          :class="{ selected: value === month }"
+          @click="selectMonth(value)"
+          :style="{ width: width / 3 + 'px' }"
+        >
+          {{ key }}
+        </div>
+      </div>
+      <div v-show="sel === 'year'">
+        <div>
+          <div class="zl-date-year-head" @click="subYears" :style="{ width: width / 2 + 'px' }">
+            <zl-icon class="icon-arrow-left"></zl-icon>
+          </div>
+          <div class="zl-date-year-head" :style="{ width: width / 2 + 'px' }" @click="addYears">
+            <zl-icon class="icon-arrow-right"></zl-icon>
+          </div>
+        </div>
+        <div
+          class="zl-date-year-sel"
+          :class="{ selected: yValue === year }"
+          style="float: left"
+          v-for="yValue in years"
+          :key="yValue"
+          @click="selectYear(yValue)"
+          :style="{ width: width / 3 + 'px' }"
+        >
+          {{ yValue }}
+        </div>
       </div>
     </div>
   </div>

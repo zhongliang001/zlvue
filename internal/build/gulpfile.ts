@@ -12,7 +12,8 @@ export default series(
     runTask('buildModules'),
     runTask('buildTypeDefine'),
     runTask('compileCss'),
-    runTask('copyFont')
+    runTask('copyFont'),
+    runTask('copyPackage')
   ),
   parallel(copyTypesDefinitions)
 )

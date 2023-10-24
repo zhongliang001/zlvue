@@ -4,7 +4,7 @@ import autoprefixer from 'gulp-autoprefixer'
 import cleanCss from 'gulp-clean-css'
 import { src, dest } from 'gulp'
 import path from 'path'
-import { outDir, packagesDir } from '.'
+import { outDir, packagesDir, projectRoot } from '.'
 export function compileCss() {
   const sass = gulpSass(dartSass)
   return src(path.resolve(packagesDir, 'theme-chalk/src/*.scss'))
@@ -18,6 +18,12 @@ export function copyFont() {
   return src(path.resolve(packagesDir, 'theme-chalk/src/fonts/**/*'))
     .pipe(cleanCss())
     .pipe(dest(path.resolve(outDir, './theme-chalk/fonts')))
+}
+
+export function copyPackage() {
+  return src(path.resolve(projectRoot, 'internal/build/src/package.json'))
+    .pipe(cleanCss())
+    .pipe(dest(path.resolve(outDir, './')))
 }
 
 // function copyfullStyle() {
