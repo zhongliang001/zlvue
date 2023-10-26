@@ -27,17 +27,17 @@ $width: 200;
   text-align: center;
 }
 
-.#{$namespace}-date-head {
+.#{$namespace}-date-header {
   float: left;
   // border: 0.01rem solid black;
   width: math.div($width, 10) + px;
   height: 25px;
   text-align: center;
 }
-.#{$namespace}-date-head.month {
+.#{$namespace}-date-header.month {
   width: math.div($width, 10) * 3 + px;
 }
-.#{$namespace}-date-head.year {
+.#{$namespace}-date-header.year {
   width: math.div($width, 10) * 3 + px;
 }
 
@@ -76,7 +76,7 @@ $width: 200;
   border: 0.01rem aliceblue solid;
 }
 
-.#{$namespace}-date-year-head {
+.#{$namespace}-date-year-header {
   float: left;
   width: math.div($width, 2) + px;
   height: 25px;
