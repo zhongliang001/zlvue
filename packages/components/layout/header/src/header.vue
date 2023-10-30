@@ -1,7 +1,7 @@
 <template>
-  <headerer class="zl-header" :style="{ height: height }">
+  <header class="zl-header" :style="{ height: height }">
     <slot></slot>
-  </headerer>
+  </header>
 </template>
 <script setup lang="ts">
 import { headerProps } from './header'

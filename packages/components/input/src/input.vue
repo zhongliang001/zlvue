@@ -16,24 +16,37 @@
       @keyup="enter"
       @focus="focus"
       @blur="blur"
+      @input="handleInput"
     />
     <zl-icon :onclick="clear">x</zl-icon>
   </div>
 </template>
 <script setup lang="ts">
 import { inputProps } from './input'
-import { computed, onMounted, shallowRef } from 'vue'
+import { computed, nextTick, onMounted, ref, shallowRef, watch } from 'vue'
 import * as all from '../../locale'
 import { formatCurrency } from '@zl-vue/utils/src/currency'
 const props = defineProps(inputProps)
 defineOptions({
   name: 'ZlInput'
 })
-
 const input = shallowRef<HTMLInputElement>()
 const _ref = computed(() => input.value)
+
+watch(
+  () => props.modelValue,
+  (newVal: any) => {
+    console.log('---------------------')
+    if (_ref.value) {
+      _ref.value.value = newVal
+    }
+  },
+  { deep: true }
+)
+
 const emit = defineEmits(['update:modelValue', 'input'])
 const enter = () => {
+  emit('input', _ref.value?.value)
   // 当type为number时控制只能输入数字
   if (props.type === 'currency') {
     preventInputChar()
@@ -44,6 +57,7 @@ const enter = () => {
  */
 const preventInputChar = () => {
   let value = _ref.value?.value
+
   if (value && _ref.value) {
     let num = parseInt(value?.toString())
     let position
@@ -98,6 +112,10 @@ onMounted(() => {
       input.value.placeholder = all[language].input.placeholder
     }
   }
+  if (_ref.value && props.modelValue) {
+    const md: string = props.modelValue
+    _ref.value.value = md
+  }
 })
 
 const clear = () => {
@@ -124,6 +142,11 @@ const blur = () => {
       _ref.value.value = curr
     }
   }
+}
+
+const handleInput = () => {
+  emit('update:modelValue', _ref.value?.value)
+  nextTick()
 }
 
 defineExpose({})

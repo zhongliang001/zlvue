@@ -6,5 +6,18 @@ import Container from './layout/container'
 import Aside from './layout/aside'
 import Main from './layout/main'
 import Footer from './layout/footer'
+import Form from './form'
+import { ZlFormItem } from './form'
 
-export const installer = [Input, Icon, Date, Header, Container, Aside, Main, Footer]
+export const installer = [
+  Input,
+  Icon,
+  Date,
+  Header,
+  Container,
+  Aside,
+  Main,
+  Footer,
+  Form,
+  ZlFormItem
+]

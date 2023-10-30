@@ -1,7 +1,10 @@
 @use '../mixins/mixins.scss' as *;
 
+.#{$namespace}-input-wrapper {
+  width: 100%;
+}
 .#{$namespace}-input {
-  background-color: blue;
+  width: 100%;
 }
 
 i {
