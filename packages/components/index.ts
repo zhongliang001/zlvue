@@ -1,4 +1,10 @@
 export * from './input'
 export * from './icon'
 export * from './date'
-
+export * from './layout/aside'
+export * from './layout/container'
+export * from './layout/footer'
+export * from './layout/header'
+export * from './layout/main'
+export * from './locale'
+export * from './form'
