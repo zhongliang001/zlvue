@@ -9,36 +9,35 @@
       placeholder="年/月/日"
       :style="{ width: width + 'px' }"
     />
-    <!-- width - 0 + 12 + 'px' 减0是为了解决vue中数字相加默认编程字符串拼接 -->
     <div class="zl-date-container" style="clear: both" :style="{ width: width - 0 + 12 + 'px' }">
       <!-- -->
       <div v-show="sel === 'day'">
         <div style="clear: both">
-          <div class="zl-date-head" @click="subYear" :style="{ width: width / 10 + 'px' }">
+          <div class="zl-date-header" @click="subYear" :style="{ width: width / 10 + 'px' }">
             <zl-icon class="icon-arrow-double-left"></zl-icon>
           </div>
-          <div class="zl-date-head" @click="subMonth" :style="{ width: width / 10 + 'px' }">
+          <div class="zl-date-header" @click="subMonth" :style="{ width: width / 10 + 'px' }">
             <zl-icon class="icon-arrow-left"></zl-icon>
           </div>
           <div
-            class="zl-date-head month"
+            class="zl-date-header month"
             @click="toSelectMonth"
             :style="{ width: (3 * width) / 10 + 'px' }"
           >
             {{ locale[language].date.month[month] }}
           </div>
           <div
-            class="zl-date-head year"
+            class="zl-date-header year"
             @click="toSelectYear"
             :style="{ width: (3 * width) / 10 + 'px' }"
           >
             {{ year + locale[language].date.year }}
           </div>
-          <div class="zl-date-head" @click="addMonth" :style="{ width: width / 10 + 'px' }">
+          <div class="zl-date-header" @click="addMonth" :style="{ width: width / 10 + 'px' }">
             <zl-icon class="icon-arrow-right"></zl-icon>
           </div>
           <div
-            class="zl-date-head right"
+            class="zl-date-header right"
             @click.prevent="addYear"
             :style="{ width: width / 10 + 'px' }"
           >
@@ -90,10 +89,10 @@
       </div>
       <div v-show="sel === 'year'">
         <div>
-          <div class="zl-date-year-head" @click="subYears" :style="{ width: width / 2 + 'px' }">
+          <div class="zl-date-year-header" @click="subYears" :style="{ width: width / 2 + 'px' }">
             <zl-icon class="icon-arrow-left"></zl-icon>
           </div>
-          <div class="zl-date-year-head" :style="{ width: width / 2 + 'px' }" @click="addYears">
+          <div class="zl-date-year-header" :style="{ width: width / 2 + 'px' }" @click="addYears">
             <zl-icon class="icon-arrow-right"></zl-icon>
           </div>
         </div>

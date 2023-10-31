@@ -1,0 +1,11 @@
+@use '../mixins/mixins.scss' as *;
+
+.#{$namespace}-container {
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+}
+
+.#{$namespace}-container.is-inline {
+  flex-direction: row;
+}
