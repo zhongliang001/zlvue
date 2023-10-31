@@ -1,0 +1,6 @@
+@use '../mixins/mixins.scss' as *;
+
+.#{$namespace}-footer {
+  width: 100%;
+  text-align: center;
+}

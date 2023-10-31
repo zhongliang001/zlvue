@@ -1,0 +1,11 @@
+@use '../mixins/mixins.scss' as *;
+
+.#{$namespace}-item {
+  flex-direction: row;
+  display: flex;
+}
+
+.#{$namespace}-item-label {
+  width: 20%;
+  display: inline-block;
+}
