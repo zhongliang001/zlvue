@@ -11,7 +11,7 @@ export const buildConfig = {
       path: path.resolve(outDir, 'es')
     },
     bundle: {
-      path: `${PKG_NAME}/es`
+      path: `../es`
     }
   },
   cjs: {
@@ -23,7 +23,7 @@ export const buildConfig = {
       path: path.resolve(outDir, 'lib')
     },
     bundle: {
-      path: `${PKG_NAME}/lib`
+      path: `../lib`
     }
   }
 }

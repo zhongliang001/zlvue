@@ -1,5 +1,3 @@
-import Input from './input/'
-import Icon from './icon'
-import Date from './date'
-
-export const installer = [Input, Icon, Date]
+export * from './input'
+export * from './icon'
+export * from './date'
