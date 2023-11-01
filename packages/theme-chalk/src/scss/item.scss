@@ -1,0 +1,49 @@
+@use '../mixins/mixins.scss' as *;
+
+.#{$namespace}-item {
+  flex-direction: row;
+  display: flex;
+}
+
+.#{$namespace}-item-label {
+  width: 20%;
+  display: inline-block;
+}
+.#{$namespace}-item-field {
+  flex-direction: column;
+  display: flex;
+  width: 100%;
+  .error {
+    color: red;
+    font-size: 4px;
+  }
+  .isvolidate {
+    display: flex;
+  }
+  .isvolidate.ok::after {
+    content: '\e625';
+    font-family: 'iconfont' !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin-top: 0.5%;
+    margin-left: 5px;
+    color: #4caf50;
+  }
+  .isvolidate.error input {
+    border: 1px solid red;
+    border-radius: 0.25rem;
+    border-color: red;
+  }
+  .isvolidate.error::after {
+    content: '\e6c6';
+    font-family: 'iconfont' !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin-top: 0.2%;
+    margin-left: 5px;
+  }
+}
