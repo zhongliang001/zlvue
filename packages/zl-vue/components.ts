@@ -20,4 +20,4 @@ export const installer = [
   Main,
   ZlFormItem,
   Header
-]
+]n
