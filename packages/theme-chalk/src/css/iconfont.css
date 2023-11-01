@@ -13,6 +13,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-clear:before {
+  content: '\e645';
+  margin-top: 0.4%;
+}
+
+.icon-search:before {
+  content: '\e8ef';
+}
+
 .icon-ok:before {
   content: '\e625';
 }

@@ -48,11 +48,11 @@ export const inputProps = {
     type: String
   },
   max: {
-    type: String,
+    type: Number,
     Number
   },
   min: {
-    type: String,
+    type: Number,
     Number
   },
   readonly: {

@@ -13,12 +13,13 @@
   flex-direction: column;
   display: flex;
   width: 100%;
+  border: 0.01rem grey solid;
   .error {
     color: red;
     font-size: 4px;
   }
   .isvolidate {
-    display: flex;
+    display: inline-flex;
   }
   .isvolidate.ok::after {
     content: '\e625';
@@ -27,7 +28,6 @@
     font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    margin-top: 0.5%;
     margin-left: 5px;
     color: #4caf50;
   }
@@ -43,7 +43,6 @@
     font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    margin-top: 0.2%;
     margin-left: 5px;
   }
 }

@@ -2,6 +2,8 @@
 
 .#{$namespace}-input-wrapper {
   width: 100%;
+  flex-direction: row;
+  display: inline-flex;
 }
 .#{$namespace}-input {
   width: 100%;
@@ -12,5 +14,18 @@ i {
 }
 
 input {
-  border: 0.01rem grey solid;
+  border: none;
+}
+
+input:focus-visible {
+  outline: none;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

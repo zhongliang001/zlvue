@@ -6,16 +6,23 @@
       <zl-main>
         <zl-form ref="form" :model="xxx" :formData="formData" :rules="rules">
           <zl-form-item prop="phoneNo" label="test">
-            <zl-input class="a" v-model="formData.phoneNo" ref="xx" name="hhhhhhhhhh"></zl-input>
+            <zl-input class="a" v-model="formData.phoneNo" ref="xx" name="phoneNo"></zl-input>
           </zl-form-item>
-
-          <zl-input class="a" type="date" ref="xxxx" name="a"></zl-input>
-          <zl-date :width="300"></zl-date>
-
-          <div>
-            <button type="button" @click="ci">点击</button>
-            <button :onclick="add">+</button>
-          </div>
+          <zl-form-item prop="phoneNo2" label="test2">
+            <zl-input
+              class="a"
+              name="phoneNo2"
+              type="search"
+              @search="testEnter"
+              :max="100"
+              :digit="2.1"
+              ref="xxxx"
+            ></zl-input>
+          </zl-form-item>
+          <zl-form-item prop="phoneNo3" label="test">
+            <zl-date :width="300" name="phoneNo3"></zl-date>
+          </zl-form-item>
+          <div></div>
         </zl-form>
       </zl-main>
     </zl-container>
@@ -41,6 +48,10 @@ const rules: FormRule = reactive({ phoneNo: rule, test2: rule })
 
 const add = () => {
   a.value++
+}
+
+const testEnter = (data: string, event: Event) => {
+  console.log(data, event)
 }
 
 // onMounted(() => {

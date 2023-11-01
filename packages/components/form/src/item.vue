@@ -1,6 +1,6 @@
 <template>
   <div class="zl-item">
-    <label class="zl-item-label" for="h" :props="prop">
+    <label class="zl-item-label" :for="prop" :props="prop">
       {{ label }}
     </label>
     <div class="zl-item-field">

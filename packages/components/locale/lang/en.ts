@@ -1,6 +1,11 @@
 export default {
   input: {
-    placeholder: 'please enter'
+    placeholder: 'please enter',
+    error: {
+      max: 'The number entered must be less than',
+      min: 'The number entered must be greater than',
+      digist: 'Formatting fails, and the number decimal place must be an integer'
+    }
   },
   date: {
     week: {
