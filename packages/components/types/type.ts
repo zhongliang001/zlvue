@@ -8,7 +8,8 @@ export type FormRule = Partial<Record<string, FormRuleItems>>
 
 export type FormRuleItem = {
   msg?: string
-  paterrn?: string
+  pattern?: string
+  volidator?: (data: string | number | object) => boolean
 }
 
 interface FormField {

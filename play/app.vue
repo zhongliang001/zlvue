@@ -24,9 +24,9 @@
   </zl-container>
 </template>
 <script lang="ts" setup>
-import { FormRule, FormRuleItems } from '@zl-vue/components/form/src/form'
 import ZlAside from '@zl-vue/components/layout/aside'
-import { reactive, ref, onMounted } from 'vue'
+import { FormRule, FormRuleItems } from '@zl-vue/components/types/type'
+import { reactive, ref } from 'vue'
 const a = ref<number>(1)
 const xx: any = ref(null)
 
@@ -35,7 +35,7 @@ const form: any = ref(null)
 const ci = () => {
   form.value.volidate()
 }
-const rule: FormRuleItems = [{ msg: 'haha', paterrn: 'ss' }]
+const rule: FormRuleItems = [{ msg: 'haha', pattern: 'ss' }]
 
 const rules: FormRule = reactive({ phoneNo: rule, test2: rule })
 

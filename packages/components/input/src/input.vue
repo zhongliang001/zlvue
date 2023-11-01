@@ -23,7 +23,7 @@
 </template>
 <script setup lang="ts">
 import { inputProps } from './input'
-import { computed, nextTick, onMounted, ref, shallowRef, watch } from 'vue'
+import { computed, nextTick, onMounted, shallowRef, watch } from 'vue'
 import * as all from '../../locale'
 import { formatCurrency } from '@zl-vue/utils/src/currency'
 const props = defineProps(inputProps)
@@ -36,7 +36,6 @@ const _ref = computed(() => input.value)
 watch(
   () => props.modelValue,
   (newVal: any) => {
-    console.log('---------------------')
     if (_ref.value) {
       _ref.value.value = newVal
     }
@@ -44,9 +43,8 @@ watch(
   { deep: true }
 )
 
-const emit = defineEmits(['update:modelValue', 'input'])
+const emit = defineEmits(['update:modelValue'])
 const enter = () => {
-  emit('input', _ref.value?.value)
   // 当type为number时控制只能输入数字
   if (props.type === 'currency') {
     preventInputChar()

@@ -3,20 +3,51 @@
     <label class="zl-item-label" for="h" :props="prop">
       {{ label }}
     </label>
-    <slot></slot>
+    <div class="zl-item-field">
+      <div :class="[{ isvolidate: isvolidate }, result ? 'ok' : 'error']">
+        <slot></slot>
+      </div>
+
+      <div :class="result ? 'hidden' : 'error'">{{ msg }}</div>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
-import { inject, onMounted } from 'vue'
+import { inject, onMounted, ref } from 'vue'
 import { ItemProps } from './item'
-import { FormField, FormRuleItems } from '../../types/type'
+import { FormField, FormRuleItem, FormRuleItems } from '../../types/type'
 
 defineOptions({
   name: 'ZlFormItem'
 })
 const props = defineProps(ItemProps)
+const msg = ref<string>('a')
+let result = ref(true)
+let isvolidate = ref(false)
 const volidate = (rule: FormRuleItems, data: string): boolean => {
-  return false
+  result.value = true
+  rule.forEach((r: FormRuleItem) => {
+    let re = true
+    if (!r.pattern) return
+    else {
+      const pattern: string = r.pattern
+      const mr: RegExpMatchArray | null = pattern.match(data)
+      if (mr === null || mr.length <= 0) {
+        re = false
+        if (r.msg) msg.value = r.msg
+      }
+    }
+    if (!re) result.value = false
+    if (r.volidator) {
+      let rr = r.volidator(data)
+      if (!rr) {
+        if (r.msg) msg.value = r.msg
+        result.value = false
+      }
+    }
+  })
+  isvolidate.value = true
+  return result.value
 }
 
 const formFiled: FormField = {

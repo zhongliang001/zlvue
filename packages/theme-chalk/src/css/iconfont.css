@@ -13,6 +13,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-ok:before {
+  content: '\e625';
+}
+
+.icon-error:before {
+  content: '\e6c6';
+}
+
 .icon-arrow-down:before {
   content: '\e665';
 }

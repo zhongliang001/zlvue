@@ -4,19 +4,32 @@
   </form>
 </template>
 <script setup lang="ts">
-import { provide, ref } from 'vue'
+import { provide, ref, watch } from 'vue'
 import { formProps } from './form'
 import { FormField } from '../../types/type'
 defineOptions({
   name: 'ZlForm'
 })
 const props = defineProps(formProps)
+
+watch(
+  () => props.formData,
+  () => {
+    if (isvolidate.value) {
+      volidate()
+    }
+  },
+  { deep: true }
+)
+
 const rules = props.rules
 const formdata = props.formData
 
 let validator = ref(true)
 
-const volidate = async () => {
+let isvolidate = ref(false)
+
+const volidate = (): boolean => {
   formFileds.forEach((t: FormField) => {
     const name: string | '' = t.name
     if (rules) {
@@ -32,6 +45,8 @@ const volidate = async () => {
       }
     }
   })
+  isvolidate.value = true
+  return validator.value
 }
 
 const formFileds: FormField[] = []
