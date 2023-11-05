@@ -23,15 +23,18 @@
 </template>
 <script setup lang="ts">
 import { inputProps } from './input'
-import { computed, nextTick, onMounted, shallowRef, watch } from 'vue'
-import * as all from '../../locale'
+import { computed, inject, nextTick, onMounted, shallowRef, watch } from 'vue'
 import { formatCurrency } from '@zl-vue/utils/src/currency'
+
 const props = defineProps(inputProps)
 defineOptions({
   name: 'ZlInput'
 })
 const input = shallowRef<HTMLInputElement>()
 const _ref = computed(() => input.value)
+
+const zlLang: any = inject('zlLang')
+const language: any = zlLang.language
 
 watch(
   () => props.modelValue,
@@ -105,9 +108,8 @@ onMounted(() => {
     input.value?.setAttribute('type', 'text')
   }
   if (!props.placeholder) {
-    const language = navigator.language.replaceAll('-', '')
     if (input.value) {
-      input.value.placeholder = all[language].input.placeholder
+      input.value.placeholder = language.input.placeholder
     }
   }
   if (_ref.value && props.modelValue) {

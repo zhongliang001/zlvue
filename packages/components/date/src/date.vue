@@ -24,14 +24,14 @@
             @click="toSelectMonth"
             :style="{ width: (3 * width) / 10 + 'px' }"
           >
-            {{ locale[language].date.month[month] }}
+            {{ language.date.month[month] }}
           </div>
           <div
             class="zl-date-header year"
             @click="toSelectYear"
             :style="{ width: (3 * width) / 10 + 'px' }"
           >
-            {{ year + locale[language].date.year }}
+            {{ year + language.date.year }}
           </div>
           <div class="zl-date-header" @click="addMonth" :style="{ width: width / 10 + 'px' }">
             <zl-icon class="icon-arrow-right"></zl-icon>
@@ -52,7 +52,7 @@
             :key="index"
             :style="{ width: width / 7 + 'px' }"
           >
-            {{ locale[language].date.week[num] }}
+            {{ language.date.week[num] }}
           </div>
         </div>
         <div style="clear: both" v-for="index in selPage.length / 7" :key="index">
@@ -77,7 +77,7 @@
       <div v-show="sel === 'month'">
         <div
           class="zl-date-month-sel"
-          v-for="(key, value) in locale[language].date.month"
+          v-for="(key, value) in language.date.month"
           :key="key"
           style="float: left"
           :class="{ selected: value === month }"
@@ -119,14 +119,16 @@ import {
   getCurrentYear,
   getMonthPage
 } from '@zl-vue/utils/src/date'
-import * as locale from '../../locale'
-import { ref, shallowRef, watch } from 'vue'
+import { inject, ref, shallowRef, watch } from 'vue'
 import { dateProps } from './date'
 import ZlIcon from '../../icon'
 const props = defineProps(dateProps)
 defineOptions({
   name: 'ZlDate'
 })
+const zlLang: any = inject('zlLang')
+const language: any = zlLang.language
+
 let year = ref<number>(getCurrentYear())
 let month = ref<number>(getCurrentMonth())
 
@@ -136,15 +138,6 @@ const day = ref<number>(0)
 
 const sel = ref('day')
 
-watch(
-  () => [year.value, month.value],
-  (newVal) => {
-    selPage.value = getMonthPage(newVal[0], newVal[1], props.isStartMon)
-    years.value = generateYears(year.value)
-  }
-)
-
-const language = navigator.language.replaceAll('-', '')
 let week: number[]
 if (props.isStartMon) {
   week = [1, 2, 3, 4, 5, 6, 7]
@@ -216,4 +209,13 @@ const selectYear = (yValue: number) => {
   year.value = yValue
   sel.value = 'day'
 }
+
+watch(
+  () => [year.value, month.value],
+  (newVal) => {
+    selPage.value = getMonthPage(newVal[0], newVal[1], props.isStartMon)
+    years.value = generateYears(year.value)
+  },
+  { deep: true, immediate: true }
+)
 </script>

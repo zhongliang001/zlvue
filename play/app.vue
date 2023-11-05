@@ -1,4 +1,5 @@
 <template>
+  <zl-config lang="en"></zl-config>
   <zl-container>
     <zl-header>hi</zl-header>
     <zl-container>
@@ -24,9 +25,9 @@
   </zl-container>
 </template>
 <script lang="ts" setup>
-import ZlAside from '@zl-vue/components/layout/aside'
 import { FormRule, FormRuleItems } from '@zl-vue/components/types/type'
 import { reactive, ref } from 'vue'
+
 const a = ref<number>(1)
 const xx: any = ref(null)
 
