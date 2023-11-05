@@ -49,3 +49,11 @@
 .icon-arrow-left:before {
   content: '\e687';
 }
+
+.icon-mima:before {
+  content: '\e60b';
+}
+
+.icon-user:before {
+  content: '\e7ae';
+}

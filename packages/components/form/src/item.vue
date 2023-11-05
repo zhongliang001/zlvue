@@ -4,16 +4,19 @@
       {{ label }}
     </label>
     <div class="zl-item-field">
-      <div :class="[{ isvolidate: isvolidate }, result ? 'ok' : 'error']">
+      <div class="field" :class="[{ isvolidate: isvolidate }, result ? 'ok' : 'error']">
         <slot></slot>
       </div>
-
-      <div :class="result ? 'hidden' : 'error'">{{ msg }}</div>
+      <div :class="result ? 'hidden' : 'errorMsg'">
+        <p v-for="m in msg" :key="m">
+          {{ m }}
+        </p>
+      </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { inject, onMounted, ref } from 'vue'
+import { inject, onMounted, provide, ref } from 'vue'
 import { ItemProps } from './item'
 import { FormField, FormRuleItem, FormRuleItems } from '../../types/type'
 
@@ -21,9 +24,11 @@ defineOptions({
   name: 'ZlFormItem'
 })
 const props = defineProps(ItemProps)
-const msg = ref<string>('a')
+// 校验的结果
+const msg = ref<string[]>([])
 let result = ref(true)
 let isvolidate = ref(false)
+
 const volidate = (rule: FormRuleItems, data: string): boolean => {
   result.value = true
   rule.forEach((r: FormRuleItem) => {
@@ -34,14 +39,14 @@ const volidate = (rule: FormRuleItems, data: string): boolean => {
       const mr: RegExpMatchArray | null = pattern.match(data)
       if (mr === null || mr.length <= 0) {
         re = false
-        if (r.msg) msg.value = r.msg
+        if (r.msg) msg.value.push(r.msg)
       }
     }
     if (!re) result.value = false
     if (r.volidator) {
       let rr = r.volidator(data)
       if (!rr) {
-        if (r.msg) msg.value = r.msg
+        if (r.msg) msg.value.push(r.msg)
         result.value = false
       }
     }
@@ -61,6 +66,20 @@ onMounted(() => {
     addFiled(formFiled)
   }
 })
+
+const volidChild = (res: boolean, errMsg: string) => {
+  if (!res) {
+    const index = msg.value.indexOf(errMsg)
+    if (index < 0) {
+      msg.value.push(errMsg)
+    }
+  } else {
+    msg.value = []
+  }
+}
+
+provide('volidChild', volidChild)
+
 const prop = props.prop
 
 defineExpose({

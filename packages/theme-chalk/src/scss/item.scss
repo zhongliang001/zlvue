@@ -13,13 +13,15 @@
   flex-direction: column;
   display: flex;
   width: 100%;
-  border: 0.01rem grey solid;
-  .error {
+  .errorMsg {
     color: red;
-    font-size: 4px;
+    font-size: 0.1rem;
   }
   .isvolidate {
     display: inline-flex;
+  }
+  .field {
+    border: 0.01rem grey solid;
   }
   .isvolidate.ok::after {
     content: '\e625';

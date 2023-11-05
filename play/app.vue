@@ -15,14 +15,22 @@
               type="search"
               @search="testEnter"
               :max="100"
-              :digit="2.1"
+              :digit="2"
               ref="xxxx"
             ></zl-input>
           </zl-form-item>
           <zl-form-item prop="phoneNo3" label="test">
             <zl-date :width="300" name="phoneNo3"></zl-date>
           </zl-form-item>
-          <div></div>
+          <zl-form-item prop="user" label="user">
+            <zl-input type="user" v-model="formData.user" name="user"></zl-input>
+          </zl-form-item>
+          <zl-form-item prop="password" label="password">
+            <zl-input type="password" v-model="formData.password" name="password"></zl-input>
+          </zl-form-item>
+          <zl-form-item prop="email" label="email">
+            <zl-input type="email" v-model="formData.email" :digit="1" name="email"></zl-input>
+          </zl-form-item>
         </zl-form>
       </zl-main>
     </zl-container>
@@ -37,7 +45,7 @@ import { reactive, ref } from 'vue'
 const a = ref<number>(1)
 const xx: any = ref(null)
 
-const formData = reactive({ phoneNo: 'b' })
+const formData = reactive({ phoneNo: 'b', password: '', user: '', email: '' })
 const form: any = ref(null)
 const ci = () => {
   form.value.volidate()

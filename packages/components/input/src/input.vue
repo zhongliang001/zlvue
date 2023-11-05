@@ -21,13 +21,20 @@
       @keyup.enter="enter"
       v-bind="$attrs"
     />
-    <zl-icon v-show="isShow" class="icon-clear" @click="clear" :font-size="1"></zl-icon>
+    <zl-icon
+      v-show="type !== 'password' && isShow"
+      class="icon-clear"
+      @click="clear"
+      :font-size="1"
+    ></zl-icon>
     <zl-icon v-show="type === 'search'" class="icon-search" @click="enter"></zl-icon>
+    <zl-icon v-show="type === 'password'" class="icon-mima"></zl-icon>
+    <zl-icon v-show="type === 'user'" class="icon-user"></zl-icon>
   </div>
 </template>
 <script setup lang="ts">
 import { inputProps } from './input'
-import { computed, nextTick, onMounted, ref, shallowRef, useAttrs, watch } from 'vue'
+import { computed, inject, nextTick, onMounted, ref, shallowRef, useAttrs, watch } from 'vue'
 import * as all from '../../locale'
 import { formatCurrency } from '@zl-vue/utils/src/currency'
 import { isPositiveInteger } from '@zl-vue/utils/src/number'
@@ -42,6 +49,8 @@ const isShow = ref(false)
 const isHover = (isHover): void => {
   isShow.value = isHover
 }
+
+const volidChild = inject('volidChild')
 
 watch(
   () => props.modelValue,
@@ -135,7 +144,7 @@ onMounted(() => {
     const md: string = props.modelValue
     _ref.value.value = md
   }
-  if (props.type === 'search') {
+  if (props.type === 'search' || props.type === 'user') {
     if (_ref.value) {
       _ref.value.type = 'text'
     }
@@ -167,18 +176,6 @@ const blur = () => {
     }
     if (props.type === 'number') {
       const intValue = parseInt(value)
-      if (props.max) {
-        if (intValue > props.max) {
-          _ref.value.value = ''
-          _ref.value.placeholder = all[language].input.error.max + props.max
-        }
-      }
-      if (props.min) {
-        if (intValue < props.min) {
-          _ref.value.value = ''
-          _ref.value.placeholder = all[language].input.error.min + props.min
-        }
-      }
       if (props.digit) {
         const isPositiveInt: boolean = isPositiveInteger(props.digit)
         if (isPositiveInt) {
@@ -187,8 +184,37 @@ const blur = () => {
           console.warn(all[language].input.error.digist)
         }
       }
-      emit('update:modelValue', _ref.value?.value)
     }
+    volid(value)
+  }
+}
+
+const volid = (value: string) => {
+  if (!_ref.value) return
+  if (typeof volidChild === 'function') return
+  if (props.type === 'number') {
+    const intValue = parseInt(value)
+    if (props.max) {
+      if (intValue > props.max) {
+        adiviceVolid(false, all[language].input.error.max + props.max, _ref.value)
+      }
+    } else if (props.min) {
+      if (intValue < props.min) {
+        adiviceVolid(false, all[language].input.error.min + props.min, _ref.value)
+      }
+    } else {
+      adiviceVolid(true, '', _ref.value)
+    }
+    emit('update:modelValue', _ref.value?.value)
+  }
+}
+
+const adiviceVolid = (res: boolean, errMsg: string, ref: HTMLInputElement) => {
+  ref.value = ''
+  if (typeof volidChild === 'function') {
+    volidChild(res, errMsg)
+  } else {
+    ref.placeholder = all[language].input.error.min + props.min
   }
 }
 
@@ -196,6 +222,5 @@ const handleInput = () => {
   emit('update:modelValue', _ref.value?.value)
   nextTick()
 }
-
 defineExpose({})
 </script>
