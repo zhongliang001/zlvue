@@ -26,6 +26,6 @@ export default {
       11: 'Nov',
       12: 'Dec'
     },
-    year: 'year'
+    year: ''
   }
 }

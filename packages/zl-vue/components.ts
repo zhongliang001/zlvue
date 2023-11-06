@@ -8,9 +8,11 @@ import Aside from '@zl-vue/components/layout/aside'
 import Container from '@zl-vue/components/layout/container'
 import Footer from '@zl-vue/components/layout/footer'
 import Main from '@zl-vue/components/layout/main'
+import Config from '@zl-vue/components/config'
 
 export const installer = [
   Aside,
+  Config,
   Container,
   Footer,
   Input,
@@ -20,4 +22,4 @@ export const installer = [
   Main,
   ZlFormItem,
   Header
-]n
+]
