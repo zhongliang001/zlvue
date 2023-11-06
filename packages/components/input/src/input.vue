@@ -44,6 +44,9 @@ defineOptions({
 })
 const input = shallowRef<HTMLInputElement>()
 const _ref = computed(() => input.value)
+
+const zlLang: any = inject('zlLang')
+const language: any = zlLang.language
 // 控制是否展示clear按钮
 const isShow = ref(false)
 const isHover = (isHover): void => {
@@ -127,7 +130,6 @@ const preventInputChar = () => {
     }
   }
 }
-const language = navigator.language.replaceAll('-', '')
 
 onMounted(() => {
   if (props.type !== 'currency') {
@@ -137,7 +139,7 @@ onMounted(() => {
   }
   if (!props.placeholder) {
     if (input.value) {
-      input.value.placeholder = all[language].input.placeholder
+      input.value.placeholder = language.input.placeholder
     }
   }
   if (_ref.value && props.modelValue) {
@@ -181,7 +183,7 @@ const blur = () => {
         if (isPositiveInt) {
           _ref.value.value = intValue.toFixed(props.digit)
         } else {
-          console.warn(all[language].input.error.digist)
+          console.warn(language.input.error.digist)
         }
       }
     }
@@ -196,11 +198,11 @@ const volid = (value: string) => {
     const intValue = parseInt(value)
     if (props.max) {
       if (intValue > props.max) {
-        adiviceVolid(false, all[language].input.error.max + props.max, _ref.value)
+        adiviceVolid(false, language.input.error.max + props.max, _ref.value)
       }
     } else if (props.min) {
       if (intValue < props.min) {
-        adiviceVolid(false, all[language].input.error.min + props.min, _ref.value)
+        adiviceVolid(false, language.input.error.min + props.min, _ref.value)
       }
     } else {
       adiviceVolid(true, '', _ref.value)
@@ -214,7 +216,7 @@ const adiviceVolid = (res: boolean, errMsg: string, ref: HTMLInputElement) => {
   if (typeof volidChild === 'function') {
     volidChild(res, errMsg)
   } else {
-    ref.placeholder = all[language].input.error.min + props.min
+    ref.placeholder = language.input.error.min + props.min
   }
 }
 
