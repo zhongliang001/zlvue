@@ -23,6 +23,10 @@
   .field {
     border: 0.01rem grey solid;
   }
+  .field-border-none {
+    border: none;
+  }
+
   .isvolidate.ok::after {
     content: '\e625';
     font-family: 'iconfont' !important;
@@ -47,4 +51,8 @@
     -moz-osx-font-smoothing: grayscale;
     margin-left: 5px;
   }
+}
+
+input[type='range'] {
+  color: red;
 }

@@ -4,7 +4,7 @@
       {{ label }}
     </label>
     <div class="zl-item-field">
-      <div class="field" :class="[{ isvolidate: isvolidate }, result ? 'ok' : 'error']">
+      <div ref="field" class="field" :class="[{ isvolidate: isvolidate }, result ? 'ok' : 'error']">
         <slot></slot>
       </div>
       <div :class="result ? 'hidden' : 'errorMsg'">
@@ -78,7 +78,19 @@ const volidChild = (res: boolean, errMsg: string) => {
   }
 }
 
+const field = ref(null)
+const advice = (type: string) => {
+  if (type === 'range') {
+    if (field.value) {
+      const f: HTMLElement = field.value
+      f.classList.add('border-none')
+    }
+  }
+}
+
 provide('volidChild', volidChild)
+
+provide('advice', advice)
 
 const prop = props.prop
 

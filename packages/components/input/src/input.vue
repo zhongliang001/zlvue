@@ -1,5 +1,9 @@
 <template>
   <div class="zl-input-wrapper" @mouseover="isHover(true)" @mouseout="isHover(false)">
+    <template v-if="type === 'range'">
+      <span v-if="min">{{ min }}</span>
+      <span v-else>0</span>
+    </template>
     <input
       :id="name"
       ref="input"
@@ -21,8 +25,18 @@
       @keyup.enter="enter"
       v-bind="$attrs"
     />
+    <template v-if="type === 'range'">
+      <input
+        class="zl-range-input"
+        ref="iRange"
+        type="text"
+        :value="_ref?.value"
+        @blur="setRange"
+      />
+      <span>%</span>
+    </template>
     <zl-icon
-      v-show="type !== 'password' && isShow"
+      v-show="type !== 'password' && type !== 'range' && isShow"
       class="icon-clear"
       @click="clear"
       :font-size="1"
@@ -35,7 +49,6 @@
 <script setup lang="ts">
 import { inputProps } from './input'
 import { computed, inject, nextTick, onMounted, ref, shallowRef, useAttrs, watch } from 'vue'
-import * as all from '../../locale'
 import { formatCurrency } from '@zl-vue/utils/src/currency'
 import { isPositiveInteger } from '@zl-vue/utils/src/number'
 const props = defineProps(inputProps)
@@ -44,9 +57,12 @@ defineOptions({
 })
 const input = shallowRef<HTMLInputElement>()
 const _ref = computed(() => input.value)
-
 const zlLang: any = inject('zlLang')
 const language: any = zlLang.language
+
+const max = props.type === 'range' ? (props.max ? props.max : 100) : props.max
+const min = props.type === 'range' ? (props.min ? props.min : 0) : props.min
+
 // 控制是否展示clear按钮
 const isShow = ref(false)
 const isHover = (isHover): void => {
@@ -131,6 +147,8 @@ const preventInputChar = () => {
   }
 }
 
+const advice: Function | undefined = inject('advice')
+
 onMounted(() => {
   if (props.type !== 'currency') {
     input.value?.setAttribute('type', props.type)
@@ -151,7 +169,27 @@ onMounted(() => {
       _ref.value.type = 'text'
     }
   }
+  if (advice) {
+    advice(props.type)
+  }
 })
+
+const iRange = ref(null)
+const setRange = () => {
+  if (_ref.value && iRange?.value) {
+    const ir: any = iRange.value
+    if (max && ir.value > max) {
+      console.warn(language.input.error.max, max)
+      ir.value = _ref.value.value
+    } else if (min && ir.value < min) {
+      console.warn(language.input.error.min, min)
+      ir.value = _ref.value.value
+    } else {
+      emit('update:modelValue', ir.value)
+      _ref.value.value = iRange?.value
+    }
+  }
+}
 
 const clear = () => {
   emit('update:modelValue', '')

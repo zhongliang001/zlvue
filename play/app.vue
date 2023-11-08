@@ -1,5 +1,5 @@
 <template>
-  <zl-config lang="en"></zl-config>
+  <zl-config lang="zhCN"></zl-config>
   <zl-container>
     <zl-header>hi</zl-header>
     <zl-container>
@@ -32,6 +32,15 @@
           <zl-form-item prop="email" label="email">
             <zl-input type="email" v-model="formData.email" :digit="1" name="email"></zl-input>
           </zl-form-item>
+          <zl-form-item prop="dataRange" label="dataRange">
+            <zl-input
+              type="range"
+              v-model="formData.email1"
+              :max="200"
+              :min="10"
+              name="dataRange"
+            ></zl-input>
+          </zl-form-item>
         </zl-form>
       </zl-main>
     </zl-container>
@@ -46,7 +55,14 @@ import { reactive, ref } from 'vue'
 const a = ref<number>(1)
 const xx: any = ref(null)
 
-const formData = reactive({ phoneNo: 'b', password: '', user: '', email: '' })
+const formData = reactive({
+  phoneNo: 'b',
+  password: '',
+  user: '',
+  email: '',
+  dataRange: '',
+  email1: ''
+})
 const form: any = ref(null)
 const ci = () => {
   form.value.volidate()

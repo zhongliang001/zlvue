@@ -37,7 +37,7 @@
     "@zl-vue/components": "workspace:^",
     "@zl-vue/theme-chalk": "workspace:^",
     "@zl-vue/utils": "workspace:^",
-    "zl-vue": "workspace:0.0.0-dev.1"
+    "zl-vue": "workspace:0.0.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",

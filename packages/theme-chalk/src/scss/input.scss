@@ -35,3 +35,34 @@ input[type='password' i]::-ms-reveal {
   width: 0.8rem;
   height: 0.8rem;
 }
+
+input[type='range'] {
+  -webkit-appearance: none; // 必须清除默认样式，否则有些样式不生效
+  border-radius: 10px;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+  background: blue;
+  border-radius: 1rem;
+  height: 0.5rem;
+}
+
+input[type='range']::-moz-range-track {
+  background: yellow;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  margin-top: -4px;
+  background-color: blue;
+  border-radius: 50%;
+  border: solid 0.125em rgba(204, 214, 220, 0.5);
+  box-shadow: 0 0.125em 0.125em #3b4547;
+}
+
+.#{$namespace}-range-input {
+  width: 25px;
+  border: solid 0.125rem rgba(204, 214, 220, 0.5);
+}
