@@ -30,7 +30,7 @@
             <zl-input type="password" v-model="formData.password" name="password"></zl-input>
           </zl-form-item>
           <zl-form-item prop="email" label="email">
-            <zl-input type="email" v-model="formData.email" :digit="1" name="email"></zl-input>
+            <zl-input type="email" v-model="formData.email" :isGuess="true" name="email"></zl-input>
           </zl-form-item>
           <zl-form-item prop="dataRange" label="dataRange">
             <zl-input

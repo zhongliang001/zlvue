@@ -91,6 +91,12 @@ export const inputProps = {
   },
   placeholder: {
     type: String
+  },
+  isGuess: {
+    type: Boolean
+  },
+  commonEmail: {
+    type: Array<string>
   }
 }
 

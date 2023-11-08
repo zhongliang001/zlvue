@@ -35,6 +35,7 @@
       />
       <span>%</span>
     </template>
+
     <zl-icon
       v-show="type !== 'password' && type !== 'range' && isShow"
       class="icon-clear"
@@ -45,10 +46,22 @@
     <zl-icon v-show="type === 'password'" class="icon-mima"></zl-icon>
     <zl-icon v-show="type === 'user'" class="icon-user"></zl-icon>
   </div>
+  <template v-if="isGuess">
+    <div class="zl-input-guess hidden" ref="iGuess">
+      <div
+        class="gess-item"
+        v-for="mail in newEmails"
+        :key="mail"
+        @click="selEmail(_ref?.value.split('@')[0] + '@' + mail)"
+      >
+        {{ _ref?.value.split('@')[0] }}@{{ mail }}
+      </div>
+    </div>
+  </template>
 </template>
 <script setup lang="ts">
 import { inputProps } from './input'
-import { computed, inject, nextTick, onMounted, ref, shallowRef, useAttrs, watch } from 'vue'
+import { computed, inject, onMounted, reactive, ref, shallowRef, useAttrs, watch } from 'vue'
 import { formatCurrency } from '@zl-vue/utils/src/currency'
 import { isPositiveInteger } from '@zl-vue/utils/src/number'
 const props = defineProps(inputProps)
@@ -69,6 +82,13 @@ const isHover = (isHover): void => {
   isShow.value = isHover
 }
 
+const commonEmail =
+  props.type === 'email'
+    ? props.commonEmail
+      ? props.commonEmail
+      : reactive(['qq.com', '126.com', '163.com'])
+    : reactive([])
+let newEmails: string[] = reactive([])
 const volidChild = inject('volidChild')
 
 watch(
@@ -82,10 +102,52 @@ watch(
 )
 
 const emit = defineEmits(['update:modelValue'])
+
+const iGuess = ref(null)
+
 const enterkey = () => {
   // 当type为number时控制只能输入数字
   if (props.type === 'currency') {
     preventInputChar()
+  } else if (props.type === 'email') {
+    const ml = _ref?.value?.value.split('@')
+    if (ml && ml[1]) {
+      const m = ml[1]
+      commonEmail.forEach((t: string) => {
+        if (t.startsWith(m) && newEmails.indexOf(t) < 0) {
+          newEmails.push(t)
+        }
+        if (!t.startsWith(m) && newEmails.indexOf(t) > -1) {
+          const index = newEmails.indexOf(t)
+          newEmails.splice(index)
+        }
+      })
+    } else if (ml && !ml[1]) {
+      commonEmail.forEach((t: string) => {
+        if (newEmails.indexOf(t) < 0) {
+          newEmails.push(t)
+        }
+      })
+    }
+    displayGuess()
+  }
+}
+
+const displayGuess = () => {
+  if (iGuess.value) {
+    const ig: HTMLElement = iGuess.value
+    if (ig) {
+      ig.classList.remove('hidden')
+    }
+  }
+}
+
+const hiddenGuess = () => {
+  if (iGuess.value) {
+    const ig: HTMLElement = iGuess.value
+    if (ig) {
+      if (!ig.classList.contains('hidden')) ig.classList.add('hidden')
+    }
   }
 }
 
@@ -258,9 +320,14 @@ const adiviceVolid = (res: boolean, errMsg: string, ref: HTMLInputElement) => {
   }
 }
 
+const selEmail = (mail: string) => {
+  emit('update:modelValue', mail)
+  if (_ref.value) _ref.value.value = mail
+  hiddenGuess()
+}
+
 const handleInput = () => {
   emit('update:modelValue', _ref.value?.value)
-  nextTick()
 }
 defineExpose({})
 </script>

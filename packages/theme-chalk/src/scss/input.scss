@@ -5,6 +5,19 @@
   flex-direction: row;
   display: inline-flex;
 }
+
+.#{$namespace}-input-guess {
+  position: absolute;
+  border: solid 0.125rem rgba(200, 226, 242, 0.5);
+  border-bottom: none;
+  flex-direction: column;
+  background-color: white;
+  width: 69%;
+  .gess-item:hover {
+    background-color: blue;
+  }
+}
+
 .#{$namespace}-input {
   width: 100%;
 }
