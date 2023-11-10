@@ -46,22 +46,29 @@
     <zl-icon v-show="type === 'password'" class="icon-mima"></zl-icon>
     <zl-icon v-show="type === 'user'" class="icon-user"></zl-icon>
   </div>
-  <template v-if="isGuess">
-    <div class="zl-input-guess hidden" ref="iGuess">
+  <template v-if="isGuess && type === 'email'">
+    <div class="zl-input-guess" ref="iGuess">
       <div
         class="gess-item"
         v-for="mail in newEmails"
         :key="mail"
-        @click="selEmail(_ref?.value.split('@')[0] + '@' + mail)"
+        @mousedown="selEmail(_ref?.value.split('@')[0] + '@' + mail)"
       >
         {{ _ref?.value.split('@')[0] }}@{{ mail }}
+      </div>
+    </div>
+  </template>
+  <template v-else-if="isGuess && type === 'url'">
+    <div class="zl-input-guess" ref="uGuess">
+      <div class="gess-item" v-for="url in newUrl" :key="url" @mousedown="selUrl(url)">
+        {{ url }}
       </div>
     </div>
   </template>
 </template>
 <script setup lang="ts">
 import { inputProps } from './input'
-import { computed, inject, onMounted, reactive, ref, shallowRef, useAttrs, watch } from 'vue'
+import { Ref, computed, inject, onMounted, reactive, ref, shallowRef, useAttrs, watch } from 'vue'
 import { formatCurrency } from '@zl-vue/utils/src/currency'
 import { isPositiveInteger } from '@zl-vue/utils/src/number'
 const props = defineProps(inputProps)
@@ -89,6 +96,12 @@ const commonEmail =
       : reactive(['qq.com', '126.com', '163.com'])
     : reactive([])
 let newEmails: string[] = reactive([])
+
+const preUrl = reactive(['http://', 'https://'])
+const suffUrl = reactive(['com', 'cn', 'org'])
+
+const newUrl: string[] = reactive([])
+
 const volidChild = inject('volidChild')
 
 watch(
@@ -102,8 +115,8 @@ watch(
 )
 
 const emit = defineEmits(['update:modelValue'])
-
 const iGuess = ref(null)
+const uGuess = ref(null)
 
 const enterkey = () => {
   // 当type为number时控制只能输入数字
@@ -129,22 +142,57 @@ const enterkey = () => {
         }
       })
     }
-    displayGuess()
+    displayGuess(iGuess)
+  } else if (props.type === 'url') {
+    const enterUrl: string | undefined = _ref.value?.value
+    const interUrl: string[] = reactive([])
+    preUrl.forEach((pu: string) => {
+      if (enterUrl && pu.length > enterUrl?.length && pu.indexOf(enterUrl) > -1) {
+        interUrl.push(pu)
+      } else if (enterUrl) {
+        if (interUrl.indexOf(enterUrl) === -1) {
+          interUrl.push(enterUrl)
+        }
+      }
+    })
+    newUrl.length = 0
+    interUrl.forEach((iu) => {
+      suffUrl.forEach((su) => {
+        const ius = iu.split('.')
+        const endUrl = ius[ius.length - 1]
+        let wu = ''
+        if (su.startsWith(endUrl)) {
+          for (let i = 0; i < ius.length - 2; i++) {
+            wu += ius[i] + '.'
+          }
+          wu += su
+          if (newUrl.indexOf(wu) === -1) {
+            newUrl.push(wu)
+          }
+        } else {
+          wu = iu + '.' + su
+          if (newUrl.indexOf(wu) === -1) {
+            newUrl.push(wu)
+          }
+        }
+      })
+    })
+    displayGuess(uGuess)
   }
 }
 
-const displayGuess = () => {
-  if (iGuess.value) {
-    const ig: HTMLElement = iGuess.value
+const displayGuess = (rf: Ref<null>) => {
+  if (rf.value) {
+    const ig: HTMLElement = rf.value
     if (ig) {
       ig.classList.remove('hidden')
     }
   }
 }
 
-const hiddenGuess = () => {
-  if (iGuess.value) {
-    const ig: HTMLElement = iGuess.value
+const hiddenGuess = (rf: Ref<null>) => {
+  if (rf.value) {
+    const ig: HTMLElement = rf.value
     if (ig) {
       if (!ig.classList.contains('hidden')) ig.classList.add('hidden')
     }
@@ -267,6 +315,12 @@ const focus = () => {
       }
     }
   }
+  if (iGuess.value) {
+    displayGuess(iGuess)
+  }
+  if (uGuess.value) {
+    displayGuess(uGuess)
+  }
 }
 
 const blur = () => {
@@ -288,6 +342,12 @@ const blur = () => {
       }
     }
     volid(value)
+  }
+  if (iGuess.value) {
+    hiddenGuess(iGuess)
+  }
+  if (uGuess.value) {
+    hiddenGuess(uGuess)
   }
 }
 
@@ -323,7 +383,12 @@ const adiviceVolid = (res: boolean, errMsg: string, ref: HTMLInputElement) => {
 const selEmail = (mail: string) => {
   emit('update:modelValue', mail)
   if (_ref.value) _ref.value.value = mail
-  hiddenGuess()
+  hiddenGuess(iGuess)
+}
+const selUrl = (url: string) => {
+  emit('update:modelValue', url)
+  if (_ref.value) _ref.value.value = url
+  hiddenGuess(uGuess)
 }
 
 const handleInput = () => {

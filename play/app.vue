@@ -41,6 +41,9 @@
               name="dataRange"
             ></zl-input>
           </zl-form-item>
+          <zl-form-item prop="url" label="url">
+            <zl-input type="url" v-model="formData.url" :isGuess="true" name="url" />
+          </zl-form-item>
         </zl-form>
       </zl-main>
     </zl-container>
@@ -61,7 +64,8 @@ const formData = reactive({
   user: '',
   email: '',
   dataRange: '',
-  email1: ''
+  email1: '',
+  url: ''
 })
 const form: any = ref(null)
 const ci = () => {
