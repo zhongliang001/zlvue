@@ -8,8 +8,8 @@
 
 .#{$namespace}-input-guess {
   position: absolute;
-  border: solid 0.125rem rgba(200, 226, 242, 0.5);
-  border-bottom: none;
+  margin-left: -0.1rem;
+  margin-top: 0.1rem;
   flex-direction: column;
   background-color: white;
   width: 69%;
@@ -35,6 +35,7 @@ input:focus-visible {
 }
 
 input[type='number'] {
+  appearance: textfield;
   -moz-appearance: textfield;
 }
 input[type='number']::-webkit-inner-spin-button,
@@ -50,6 +51,7 @@ input[type='password' i]::-ms-reveal {
 }
 
 input[type='range'] {
+  appearance: none;
   -webkit-appearance: none; // 必须清除默认样式，否则有些样式不生效
   border-radius: 10px;
 }

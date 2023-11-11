@@ -44,6 +44,9 @@
           <zl-form-item prop="url" label="url">
             <zl-input type="url" v-model="formData.url" :isGuess="true" name="url" />
           </zl-form-item>
+          <zl-form-item prop="ckeckbox" label="ckeckbox">
+            <zl-checkbox :checkData="checkData" v-model="formData.ckeckbox"></zl-checkbox>
+          </zl-form-item>
         </zl-form>
       </zl-main>
     </zl-container>
@@ -52,6 +55,7 @@
   </zl-container>
 </template>
 <script lang="ts" setup>
+import { CheckboxProps } from 'zl-vue'
 import { FormRule, FormRuleItems } from '@zl-vue/components/types/type'
 import { reactive, ref } from 'vue'
 
@@ -65,8 +69,12 @@ const formData = reactive({
   email: '',
   dataRange: '',
   email1: '',
-  url: ''
+  url: '',
+  ckeckbox: []
 })
+
+const checkData: CheckboxProps['checkData'] = new Map(Object.entries({ test: '1', test1: '2' }))
+
 const form: any = ref(null)
 const ci = () => {
   form.value.volidate()

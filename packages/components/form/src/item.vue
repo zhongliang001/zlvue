@@ -80,7 +80,7 @@ const volidChild = (res: boolean, errMsg: string) => {
 
 const field = ref(null)
 const advice = (type: string) => {
-  if (type === 'range') {
+  if (type === 'range' || type === 'checkbox') {
     if (field.value) {
       const f: HTMLElement = field.value
       f.classList.add('border-none')
