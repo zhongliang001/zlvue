@@ -1,5 +1,6 @@
 import { isPositiveInteger } from '@zl-vue/utils/src/number'
 import type { ExtractPropTypes } from 'vue'
+import { definePropType } from '../../types/type'
 
 const types = [
   'color',
@@ -96,7 +97,7 @@ export const inputProps = {
     type: Boolean
   },
   commonEmail: {
-    type: Array<string>
+    type: definePropType<Array<string>>(Object)
   }
 }
 
