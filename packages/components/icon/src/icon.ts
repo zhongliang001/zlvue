@@ -6,7 +6,7 @@ export const icontProps = {
   },
   fontSize: {
     type: Number,
-    default: 16
+    default: 1
   }
 }
 

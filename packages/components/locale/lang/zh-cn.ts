@@ -1,6 +1,11 @@
 export default {
   input: {
-    placeholder: '请输入'
+    placeholder: '请输入',
+    error: {
+      max: '输入的数字必须小于',
+      min: '输入的数字必须大于',
+      digist: '格式化失效，数字小数位必须是整数'
+    }
   },
   date: {
     week: {

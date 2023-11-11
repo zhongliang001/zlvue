@@ -12,6 +12,9 @@ export const dateProps = {
   width: {
     type: Number,
     default: 200
+  },
+  name: {
+    type: String
   }
 }
 

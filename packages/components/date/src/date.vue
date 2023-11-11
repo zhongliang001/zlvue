@@ -1,6 +1,7 @@
 <template>
   <div>
     <input
+      :id="name"
       ref="input"
       class="zl-date"
       type="text"

@@ -9,9 +9,11 @@ import Container from '@zl-vue/components/layout/container'
 import Footer from '@zl-vue/components/layout/footer'
 import Main from '@zl-vue/components/layout/main'
 import Config from '@zl-vue/components/config'
+import Checkbox from '@zl-vue/components/checkbox'
 
 export const installer = [
   Aside,
+  Checkbox,
   Config,
   Container,
   Footer,

@@ -1,4 +1,6 @@
+import { isPositiveInteger } from '@zl-vue/utils/src/number'
 import type { ExtractPropTypes } from 'vue'
+import { definePropType } from '../../types/type'
 
 const types = [
   'color',
@@ -14,7 +16,9 @@ const types = [
   'tel',
   'time',
   'url',
-  'week'
+  'week',
+  'password',
+  'user'
 ]
 
 const checkType = (value: string): boolean => {
@@ -27,6 +31,14 @@ const checkType = (value: string): boolean => {
   } else {
     value = 'text'
     return true
+  }
+  return true
+}
+
+const checkDigit = (value: number): boolean => {
+  const isPositiveInt: boolean = isPositiveInteger(value)
+  if (!isPositiveInt) {
+    throw 'digst必须是整数'
   }
   return true
 }
@@ -48,11 +60,11 @@ export const inputProps = {
     type: String
   },
   max: {
-    type: String,
+    type: Number,
     Number
   },
   min: {
-    type: String,
+    type: Number,
     Number
   },
   readonly: {
@@ -72,13 +84,20 @@ export const inputProps = {
   },
   digit: {
     type: Number,
-    default: 2
+    default: 2,
+    validator: (value): value is number => checkDigit(value)
   },
   modelValue: {
     type: String
   },
   placeholder: {
     type: String
+  },
+  isGuess: {
+    type: Boolean
+  },
+  commonEmail: {
+    type: definePropType<Array<string>>(Object)
   }
 }
 

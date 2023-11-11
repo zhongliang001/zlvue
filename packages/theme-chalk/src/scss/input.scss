@@ -2,7 +2,22 @@
 
 .#{$namespace}-input-wrapper {
   width: 100%;
+  flex-direction: row;
+  display: inline-flex;
 }
+
+.#{$namespace}-input-guess {
+  position: absolute;
+  margin-left: -0.1rem;
+  margin-top: 0.1rem;
+  flex-direction: column;
+  background-color: white;
+  width: 69%;
+  .gess-item:hover {
+    background-color: blue;
+  }
+}
+
 .#{$namespace}-input {
   width: 100%;
 }
@@ -12,5 +27,57 @@ i {
 }
 
 input {
-  border: 0.01rem grey solid;
+  border: none;
+}
+
+input:focus-visible {
+  outline: none;
+}
+
+input[type='number'] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+// 修改password, 显示密码按钮大小
+input[type='password' i]::-ms-reveal {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+input[type='range'] {
+  appearance: none;
+  -webkit-appearance: none; // 必须清除默认样式，否则有些样式不生效
+  border-radius: 10px;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+  background: blue;
+  border-radius: 1rem;
+  height: 0.5rem;
+}
+
+input[type='range']::-moz-range-track {
+  background: yellow;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  margin-top: -4px;
+  background-color: blue;
+  border-radius: 50%;
+  border: solid 0.125em rgba(204, 214, 220, 0.5);
+  box-shadow: 0 0.125em 0.125em #3b4547;
+}
+
+.#{$namespace}-range-input {
+  width: 25px;
+  border: solid 0.125rem rgba(204, 214, 220, 0.5);
 }
