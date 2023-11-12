@@ -47,6 +47,9 @@
           <zl-form-item prop="ckeckbox" label="ckeckbox">
             <zl-checkbox :checkData="checkData" v-model="formData.ckeckbox"></zl-checkbox>
           </zl-form-item>
+          <zl-form-item prop="radio" label="radio">
+            <zl-radio :radioData="radioData" v-model="formData.radio"></zl-radio>
+          </zl-form-item>
         </zl-form>
       </zl-main>
     </zl-container>
@@ -55,7 +58,7 @@
   </zl-container>
 </template>
 <script lang="ts" setup>
-import { CheckboxProps } from 'zl-vue'
+import { CheckboxProps, RadioProps } from 'zl-vue'
 import { FormRule, FormRuleItems } from '@zl-vue/components/types/type'
 import { reactive, ref } from 'vue'
 
@@ -70,10 +73,12 @@ const formData = reactive({
   dataRange: '',
   email1: '',
   url: '',
-  ckeckbox: []
+  ckeckbox: [],
+  radio: ''
 })
 
 const checkData: CheckboxProps['checkData'] = new Map(Object.entries({ test: '1', test1: '2' }))
+const radioData: RadioProps['radioData'] = new Map(Object.entries({ test: '1', test1: '2' }))
 
 const form: any = ref(null)
 const ci = () => {
