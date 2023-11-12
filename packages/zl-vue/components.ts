@@ -11,6 +11,7 @@ import Main from '@zl-vue/components/layout/main'
 import Config from '@zl-vue/components/config'
 import Checkbox from '@zl-vue/components/checkbox'
 import Radio from '@zl-vue/components/radio'
+import Select from '@zl-vue/components/select'
 
 export const installer = [
   Aside,
@@ -25,5 +26,6 @@ export const installer = [
   Main,
   Header,
   Radio,
+  Select,
   ZlFormItem
 ]

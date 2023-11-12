@@ -1,0 +1,20 @@
+@use '../mixins/mixins.scss' as *;
+
+.#{$namespace}-selet-input input {
+  width: calc(100% - 40px);
+}
+
+.#{$namespace}-select-option {
+  position: absolute;
+  background-color: aliceblue;
+  width: 68.5%;
+  ul {
+    list-style-type: none;
+    padding-left: 0.1rem;
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
+    li:hover {
+      background-color: blue;
+    }
+  }
+}

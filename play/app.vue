@@ -50,19 +50,25 @@
           <zl-form-item prop="radio" label="radio">
             <zl-radio :radioData="radioData" v-model="formData.radio"></zl-radio>
           </zl-form-item>
+          <zl-form-item prop="select" label="select">
+            <zl-select
+              v-model="formData.select"
+              :selectOption="selectOption"
+              :isGuess="true"
+            ></zl-select>
+          </zl-form-item>
         </zl-form>
       </zl-main>
     </zl-container>
-
+    <input type="button" name="addSel" @click="addSel" value="测试添加选项" />
     <zl-footer>底部</zl-footer>
   </zl-container>
 </template>
 <script lang="ts" setup>
-import { CheckboxProps, RadioProps } from 'zl-vue'
+import { CheckboxProps, RadioProps, SelectProps } from 'zl-vue'
 import { FormRule, FormRuleItems } from '@zl-vue/components/types/type'
 import { reactive, ref } from 'vue'
 
-const a = ref<number>(1)
 const xx: any = ref(null)
 
 const formData = reactive({
@@ -74,23 +80,24 @@ const formData = reactive({
   email1: '',
   url: '',
   ckeckbox: [],
-  radio: ''
+  radio: '',
+  select: []
 })
 
 const checkData: CheckboxProps['checkData'] = new Map(Object.entries({ test: '1', test1: '2' }))
 const radioData: RadioProps['radioData'] = new Map(Object.entries({ test: '1', test1: '2' }))
-
-const form: any = ref(null)
-const ci = () => {
-  form.value.volidate()
+const selectOption: SelectProps['selectOption'] = reactive<Map<string, string>>(
+  new Map(Object.entries({ atest: '1', btest1: '2', 测试: '3', 检查: '4' }))
+)
+const addSel = () => {
+  selectOption.set('测试1', '添加')
+  console.log('被输出值{ selectOption }的输出结果是：', selectOption)
 }
+const form: any = ref(null)
+
 const rule: FormRuleItems = [{ msg: 'haha', pattern: 'ss' }]
 
 const rules: FormRule = reactive({ phoneNo: rule, test2: rule })
-
-const add = () => {
-  a.value++
-}
 
 const testEnter = (data: string, event: Event) => {
   console.log(data, event)
